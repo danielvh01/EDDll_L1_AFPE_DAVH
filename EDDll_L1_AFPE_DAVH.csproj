@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="DataStructures\DataStructures\DataStructures.csproj" />
+    <Compile Remove="DataStructures\**" />
+    <Content Remove="DataStructures\**" />
+    <EmbeddedResource Remove="DataStructures\**" />
+    <None Remove="DataStructures\**" />
   </ItemGroup>
 
 
