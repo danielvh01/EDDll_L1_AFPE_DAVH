@@ -59,7 +59,7 @@ namespace DataStructures
 
         void SplitChild(int i, B_TreeNode<T> y)
         {
-            B_TreeNode<T> z = new B_TreeNode<T>(y.length, y.leaf);
+            B_TreeNode<T> z = new B_TreeNode<T>(y.minimum, y.leaf);
             z.length = minimum - 1;
 
             for (int j = 0; j < minimum - 1; j++)
