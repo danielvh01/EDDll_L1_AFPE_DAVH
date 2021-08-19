@@ -56,5 +56,42 @@ namespace DataStructures
                 childs[i + 1].InsertKey(k);
             }
         }
+
+        void SplitChild(int i, B_TreeNode<T> y)
+        {
+            B_TreeNode<T> z = new B_TreeNode<T>(y.length, y.leaf);
+            z.length = minimum - 1;
+
+            for (int j = 0; j < minimum - 1; j++)
+            {
+                z.keys[j] = y.keys[j + minimum];
+            }
+
+            if (y.leaf == false)
+            {
+                for (int j = 0; j < minimum; j++)
+                {
+                    z.childs[j] = y.childs[j + minimum];
+                }
+            }
+
+            y.length = minimum - 1;
+
+            for (int j = length; j >= i + 1; j--)
+            {
+                childs[j + 1] = childs[j];
+            }
+            childs[i + 1] = z;
+
+            for (int j = length - 1; j >= i; j--)
+            {
+                keys[j + 1] = keys[j];
+            }
+
+            keys[i] = y.keys[minimum - 1];
+            length = length + 1;
+
+
+        }
     }
 }
