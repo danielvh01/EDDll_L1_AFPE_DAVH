@@ -49,6 +49,37 @@ namespace DataStructures
             }
         }
 
+        B_TreeNode<T> search(T k)
+        {
+            if(root != null)
+            {
+                return root.Search(k);
+            }
+            else
+            {
+                return null;
+            }
+        }
         
+        void Remove(T k)
+        {
+            if(root != null)
+            {
+                root.remove(k);
+
+                if(root.length == 0)
+                {
+                    B_TreeNode<T> tmp = root;
+                    if(root.leaf)
+                    {
+                        root = null;
+                    }
+                    else
+                    {
+                        root = root.childs[0];
+                    }
+                }
+            }
+        }
     }
 }
