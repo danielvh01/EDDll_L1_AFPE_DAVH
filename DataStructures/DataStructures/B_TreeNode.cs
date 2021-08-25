@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataStructures
 {
-    class B_TreeNode<T> where T : IComparable
+    internal class B_TreeNode<T> where T : IComparable
     {
         public T[] keys;
         int maximun;

@@ -10,7 +10,7 @@ namespace DataStructures
     {
         #region Variables
         //Pointers
-        public Node<T> First;
+        internal Node<T> First;
         Node<T> End;
         //Properties
         public int Length = 0;

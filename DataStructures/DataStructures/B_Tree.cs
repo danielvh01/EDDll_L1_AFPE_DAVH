@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DataStructures
 {
-    class B_Tree<T> where T : IComparable
+    public class B_Tree<T> where T : IComparable
     {
-        public B_TreeNode<T> root;
+        internal B_TreeNode<T> root;
         public int degree;
         public int minDegree;
 
