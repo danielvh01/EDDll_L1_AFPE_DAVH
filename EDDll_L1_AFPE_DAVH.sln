@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDDll_L1_AFPE_DAVH", "EDDll
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures", "DataStructures\DataStructures\DataStructures.csproj", "{7956B0A5-DAB6-4D0E-B90B-970237B91F41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serie2_INT_TREE", "Serie2_INT_TREE\Serie2_INT_TREE.csproj", "{A0E525BB-5890-490E-A6F8-24672B680125}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serie II_INT_B_TREE", "Serie II_INT_B_TREE\Serie II_INT_B_TREE.csproj", "{77B4E4F6-1795-4B33-A0FE-E07B8E00CEB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0E525BB-5890-490E-A6F8-24672B680125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0E525BB-5890-490E-A6F8-24672B680125}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0E525BB-5890-490E-A6F8-24672B680125}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0E525BB-5890-490E-A6F8-24672B680125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B4E4F6-1795-4B33-A0FE-E07B8E00CEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B4E4F6-1795-4B33-A0FE-E07B8E00CEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B4E4F6-1795-4B33-A0FE-E07B8E00CEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B4E4F6-1795-4B33-A0FE-E07B8E00CEB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

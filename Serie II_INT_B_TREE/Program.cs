@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataStructures;
 
-namespace Serie2_INT_TREE
+namespace Serie_II_INT_B_TREE
 {
     class Program
     {
@@ -12,9 +9,6 @@ namespace Serie2_INT_TREE
         {
             Console.WriteLine("Ingrese grado del arbol B");
             int degree = int.Parse(Console.ReadLine());
-
-            
-
         }
     }
 }
