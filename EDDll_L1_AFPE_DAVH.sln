@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDDll_L1_AFPE_DAVH", "EDDll_L1_AFPE_DAVH.csproj", "{A4EE5A52-8A03-4CEF-B867-1B2A5B438843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EDDll_L1_AFPE_DAVH", "EDDll_L1_AFPE_DAVH.csproj", "{A4EE5A52-8A03-4CEF-B867-1B2A5B438843}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructures", "DataStructures\DataStructures\DataStructures.csproj", "{7956B0A5-DAB6-4D0E-B90B-970237B91F41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serie2_INT_TREE", "Serie2_INT_TREE\Serie2_INT_TREE.csproj", "{A0E525BB-5890-490E-A6F8-24672B680125}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7956B0A5-DAB6-4D0E-B90B-970237B91F41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E525BB-5890-490E-A6F8-24672B680125}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E525BB-5890-490E-A6F8-24672B680125}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E525BB-5890-490E-A6F8-24672B680125}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E525BB-5890-490E-A6F8-24672B680125}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
