@@ -9,8 +9,8 @@ namespace DataStructures
     {
         #region Variables and instances
         //Punteros de nodos
-        public AVLTreeNode<T> Root { get; set; }
-        public AVLTreeNode<T> Work { get; set; }
+        internal AVLTreeNode<T> Root { get; set; }
+        internal AVLTreeNode<T> Work { get; set; }
 
         //Propiedades
         public int Length = 0;
@@ -22,10 +22,13 @@ namespace DataStructures
             Work = null;
         }
         #endregion
-
+        public void Insert(T newvalue)
+        {
+            Insert_New(newvalue, Root);
+        }
         #region Methods
         //Metodo de insersión de un nuevo elemento
-        public AVLTreeNode<T> Insert(T newvalue, AVLTreeNode<T> pNode)
+        internal AVLTreeNode<T> Insert_New(T newvalue, AVLTreeNode<T> pNode)
         {
             //Revisa si el nodo en el que se esta vacío
             if (pNode == null)
@@ -36,12 +39,12 @@ namespace DataStructures
             //Si el elemento a insertar es menor al nodo actual, se corre al hizo izquierdo
             if (newvalue.CompareTo(pNode.value) < 0)
             {
-                pNode.left = Insert(newvalue, pNode.left);
+                pNode.left = Insert_New(newvalue, pNode.left);
             }
             //Si el elemento a insertar es mayor al nodo actual, se corre al hizo derecho
             else if (newvalue.CompareTo(pNode.value) > 0)
             {
-                pNode.right = Insert(newvalue, pNode.right);
+                pNode.right = Insert_New(newvalue, pNode.right);
             }
             else
             {
@@ -78,8 +81,12 @@ namespace DataStructures
             return pNode;
 
         }
+        public T Find(Func<T, int> comparer)
+        {
+            return Find_node(comparer, Root);
+        }
         //Este método busca un elemento en base a una función
-        public T Find(Func<T, int> comparer, AVLTreeNode<T> node)
+        internal T Find_node(Func<T, int> comparer, AVLTreeNode<T> node)
         {
             //Si el elemento actual no es nulo
             if (node != null)
@@ -92,12 +99,12 @@ namespace DataStructures
                 //Si el valor actual es menor al nodo actual, se mueve al hijo izquierdo
                 if (comparer.Invoke(node.value) < 0)
                 {
-                    return Find(comparer, node.left);
+                    return Find_node(comparer, node.left);
                 }
                 //Si el valor actual es mayor al nodo actual, se mueve al hijo derecho
                 else
                 {
-                    return Find(comparer, node.right);
+                    return Find_node(comparer, node.right);
                 }
             }
 
@@ -105,7 +112,7 @@ namespace DataStructures
         }
 
         //Este método busca el nodo padre del elemento
-        public AVLTreeNode<T> SearchParent(AVLTreeNode<T> node, AVLTreeNode<T> parent)
+        internal AVLTreeNode<T> SearchParent(AVLTreeNode<T> node, AVLTreeNode<T> parent)
         {
             AVLTreeNode<T> temp = null;
             //Si el nodo es nulo no devuelve null
@@ -144,8 +151,13 @@ namespace DataStructures
             }
             return temp;
         }
+
+        public T Delete(T value)
+        {
+            return Delete_node(Root, value).value;
+        }
         //Este método elimina un elemento del árbol
-        public AVLTreeNode<T> Delete(AVLTreeNode<T> node, T value)
+        internal AVLTreeNode<T> Delete_node(AVLTreeNode<T> node, T value)
         {
             //Revisa si el nodo en el que se esta vacío
             if (node == null)
@@ -155,12 +167,12 @@ namespace DataStructures
             //Si el nodo a eliminar es menor al nodo actual, se mueve al hijo izquierdo
             if (value.CompareTo(node.value) < 0)
             {
-                node.left = Delete(node.left, value);
+                node.left = Delete_node(node.left, value);
             }
             //Si el nodo a eliminar es mayor al nodo actual, se mueve al hijo derecho
             else if (value.CompareTo(node.value) > 0)
             {
-                node.right = Delete(node.right, value);
+                node.right = Delete_node(node.right, value);
             }
             //Si el nodo a eliminar es igual al nodo actual revisará el caso de eliminación
             else
@@ -178,7 +190,7 @@ namespace DataStructures
                 else
                 {
                     node.value = FindMinimum(node.right).value;
-                    node.right = Delete(node.right, node.value);
+                    node.right = Delete_node(node.right, node.value);
                 }
                 Length--;
             }
@@ -212,7 +224,7 @@ namespace DataStructures
             return node;
         }
         //Metodo que busca el nodo más pequeño de un subárbol
-        public AVLTreeNode<T> FindMinimum(AVLTreeNode<T> node)
+        internal AVLTreeNode<T> FindMinimum(AVLTreeNode<T> node)
         {
             //Verifica si el elemento no esta vacío
             if (node == null)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class Node<T>
+    internal class Node<T>
     {
         //Apuntadores a nodos
         public Node<T> next = null;
