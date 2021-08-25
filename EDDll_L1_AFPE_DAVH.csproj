@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="DataStructures\**" />
+    <Compile Remove="Serie2_INT_TREE\**" />
     <Content Remove="DataStructures\**" />
+    <Content Remove="Serie2_INT_TREE\**" />
     <EmbeddedResource Remove="DataStructures\**" />
+    <EmbeddedResource Remove="Serie2_INT_TREE\**" />
     <None Remove="DataStructures\**" />
+    <None Remove="Serie2_INT_TREE\**" />
   </ItemGroup>
 
 
