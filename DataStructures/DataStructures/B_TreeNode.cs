@@ -96,7 +96,7 @@ namespace DataStructures
         public B_TreeNode<T> Search(T k)
         {
             int i = 0;
-            while(i < length && k.CompareTo(keys[i]) == 1)
+            while(i < length - 1 && k.CompareTo(keys[i]) == 1)
             {
                 i++;
             }
@@ -335,6 +335,26 @@ namespace DataStructures
 
             child.length += sibling.length + 1;
             length--;
+        }
+
+        public void print(ref string body)
+        {
+            if(!leaf)
+            {
+                for(int i = 0; i < length; i++)
+                {
+                    childs[i].print(ref body);
+                    body += keys[i] + ", ";
+                }
+                childs[length].print(ref body);
+            }
+            else
+            {
+                for(int i = 0; i < length; i++)
+                {
+                    body += keys[i] + ", ";
+                }
+            }
         }
     }
 }
