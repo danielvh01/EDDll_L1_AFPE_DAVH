@@ -16,7 +16,7 @@ namespace DataStructures
         public B_TreeNode(int degree, bool l)
         {
             maximun = degree - 1;
-            minimum = degree / 2 - 1;
+            minimum = degree / 2;
             leaf = l;
             keys = new T[maximun];
             childs = new B_TreeNode<T>[maximun + 1];
@@ -34,7 +34,6 @@ namespace DataStructures
                     keys[i + 1] = keys[i];
                     i--;
                 }
-
                 keys[i + 1] = k;
                 length++;
             }
@@ -59,23 +58,23 @@ namespace DataStructures
 
         public void SplitChild(int i, B_TreeNode<T> y)
         {
-            B_TreeNode<T> z = new B_TreeNode<T>(y.minimum, y.leaf);
+            B_TreeNode<T> z = new B_TreeNode<T>(y.maximun + 1, y.leaf);
             z.length = minimum - 1;
 
             for (int j = 0; j < minimum - 1; j++)
             {
-                z.keys[j] = y.keys[j + minimum];
+                z.keys[j] = y.keys[j + minimum + 1];
             }
 
             if (y.leaf == false)
             {
                 for (int j = 0; j < minimum; j++)
                 {
-                    z.childs[j] = y.childs[j + minimum];
+                    z.childs[j] = y.childs[j + minimum + 1];
                 }
             }
 
-            y.length = minimum - 1;
+            y.length = minimum;
 
             for (int j = length; j >= i + 1; j--)
             {
@@ -83,12 +82,12 @@ namespace DataStructures
             }
             childs[i + 1] = z;
 
-            for (int j = length - 1; j >= i; j--)
+            for (int j = length; j >= i; j--)
             {
                 keys[j + 1] = keys[j];
             }
 
-            keys[i] = y.keys[minimum - 1];
+            keys[i] = y.keys[minimum];
             length = length + 1;
 
 
@@ -97,7 +96,7 @@ namespace DataStructures
         public B_TreeNode<T> Search(T k)
         {
             int i = 0;
-            while (i < length && k.CompareTo(keys[i]) == 1)
+            while(i < length - 1 && k.CompareTo(keys[i]) == 1)
             {
                 i++;
             }
@@ -338,22 +337,24 @@ namespace DataStructures
             length--;
         }
 
-        public void traverse(ref DoubleLinkedList<T> result)
-        {            
-            int index;
-            for (index = 0; index < length; index++)
+        public void print(ref string body)
+        {
+            if(!leaf)
             {
-                if (!leaf)
+                for(int i = 0; i < length; i++)
                 {
-                    childs[index].traverse(ref result);                    
+                    childs[i].print(ref body);
+                    body += keys[i] + ", ";
                 }
-                result.Insert(keys[index],result.Length-1);
+                childs[length].print(ref body);
             }
-            if (!leaf)
+            else
             {
-                childs[index].traverse(ref result);
+                for(int i = 0; i < length; i++)
+                {
+                    body += keys[i] + ", ";
+                }
             }
         }
-
     }
 }
