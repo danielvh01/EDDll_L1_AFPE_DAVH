@@ -8,60 +8,75 @@ namespace DataStructures
     {
         internal B_TreeNode<T> root;
         public int degree;
-        public int minDegree;
-        public string treeP = "";
-        B_Tree(int d)
+
+        public B_Tree(int d)
         {
             root = null;
             degree = d;
-            minDegree = d / 2;
         }
 
-        void Insert(T k)
+        public void Insert(T k)
         {
             if(root == null)
             {
-                root = new B_TreeNode<T>(minDegree, true);
+                root = new B_TreeNode<T>(degree, true);
                 root.keys[0] = k;
                 root.length = 1;
             }
             else
             {
-                if(root.length == (degree - 1))
+                T x = search(k);
+                T y = default;
+                if (x.CompareTo(y) == 0)
                 {
-                    B_TreeNode<T> newNode = new B_TreeNode<T>(degree, false);
-                    newNode.childs[0] = root;
-                    newNode.SplitChild(0, root);
-
-                    int i = 0;
-                    if(newNode.keys[0].CompareTo(k) == -1)
+                    if (root.length == (degree - 1))
                     {
-                        i++;
-                    }
-                    newNode.childs[i].InsertKey(k);
+                        B_TreeNode<T> newNode = new B_TreeNode<T>(degree, false);
+                        newNode.childs[0] = root;
+                        newNode.SplitChild(0, root);
 
-                    root = newNode;
+                        int i = 0;
+                        if (newNode.keys[0].CompareTo(k) == -1)
+                        {
+                            i++;
+                        }
+                        newNode.childs[i].InsertKey(k);
+
+                        root = newNode;
+                    }
+                    else
+                    {
+                        root.InsertKey(k);
+                    }
                 }
                 else
                 {
-                    root.InsertKey(k);
+                    return;
                 }
             }
         }
 
-        B_TreeNode<T> search(T k)
+        public T search(T k)
         {
             if(root != null)
             {
-                return root.Search(k);
+                B_TreeNode<T> node = root.Search(k);
+                if(node != null)
+                {
+                    return k;
+                }
+                else
+                {
+                    return default;
+                }
             }
             else
             {
-                return null;
+                return default;
             }
         }
         
-        void Remove(T k)
+        public void Remove(T k)
         {
             if(root != null)
             {
@@ -80,6 +95,16 @@ namespace DataStructures
                     }
                 }
             }
+        }
+        public string printTree()
+        {
+            string result = "";
+            if(root != null)
+            {
+                root.print(ref result);
+            }
+            result = result.Remove(result.Length - 2);
+            return result;
         }
 
         public DoubleLinkedList<T> traverse()
