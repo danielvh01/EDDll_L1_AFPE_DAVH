@@ -357,6 +357,21 @@ namespace DataStructures
             }
         }
 
-
+        public void traverse(ref DoubleLinkedList<T> result)
+        {
+            int index;
+            for (index = 0; index < length; index++)
+            {
+                if (!leaf)
+                {
+                    childs[index].traverse(ref result);
+                }
+                result.Insert(keys[index], result.Length - 1);
+            }
+            if (!leaf)
+            {
+                childs[index].traverse(ref result);
+            }
+        }
     }
 }
