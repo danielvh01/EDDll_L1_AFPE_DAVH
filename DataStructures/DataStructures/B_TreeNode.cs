@@ -5,7 +5,7 @@ using System.Text;
 namespace DataStructures
 {
     internal class B_TreeNode<T> where T : IComparable
-    {
+    {        
         public T[] keys;
         int maximun;
         int minimum;
@@ -27,7 +27,7 @@ namespace DataStructures
         {
             int i = length - 1;
 
-            if( leaf )
+            if (leaf)
             {
                 while (i >= 0 && keys[i].CompareTo(k) == 1)
                 {
@@ -44,11 +44,11 @@ namespace DataStructures
                 {
                     i--;
                 }
-                if(childs[i + 1].length == maximun)
+                if (childs[i + 1].length == maximun)
                 {
                     SplitChild(i + 1, childs[i + 1]);
 
-                    if(keys[i + 1].CompareTo(k) == -1)
+                    if (keys[i + 1].CompareTo(k) == -1)
                     {
                         i++;
                     }
@@ -97,12 +97,12 @@ namespace DataStructures
         public B_TreeNode<T> Search(T k)
         {
             int i = 0;
-            while(i < length && k.CompareTo(keys[i]) == 1)
+            while (i < length && k.CompareTo(keys[i]) == 1)
             {
                 i++;
             }
 
-            if(keys[i].CompareTo(k) == 0)
+            if (keys[i].CompareTo(k) == 0)
             {
                 return this;
             }
@@ -114,13 +114,13 @@ namespace DataStructures
             {
                 return childs[i].Search(k);
             }
-            
+
         }
 
         int findKey(T k)
         {
             int i = 0;
-            while(i < length && keys[i].CompareTo(k) == -1)
+            while (i < length && keys[i].CompareTo(k) == -1)
             {
                 ++i;
             }
@@ -131,9 +131,9 @@ namespace DataStructures
         {
             int i = findKey(k);
 
-            if(i < length && keys[i].CompareTo(k) == 0)
+            if (i < length && keys[i].CompareTo(k) == 0)
             {
-                if(leaf)
+                if (leaf)
                 {
                     removeFromLeaf(i);
                 }
@@ -144,18 +144,18 @@ namespace DataStructures
             }
             else
             {
-                if(leaf)
+                if (leaf)
                 {
                     return;
                 }
 
                 bool flag = (i == length);
 
-                if(childs[i].length < minimum)
+                if (childs[i].length < minimum)
                 {
                     fill(i);
                 }
-                else if(flag && i > length)
+                else if (flag && i > length)
                 {
                     childs[i - 1].remove(k);
                 }
@@ -168,7 +168,7 @@ namespace DataStructures
 
         void removeFromLeaf(int idx)
         {
-            for(int i = idx + 1; i < length; i++)
+            for (int i = idx + 1; i < length; i++)
             {
                 keys[i - 1] = keys[i];
             }
@@ -180,13 +180,13 @@ namespace DataStructures
         {
             T k = keys[idx];
 
-            if(childs[idx].length >= minimum)
+            if (childs[idx].length >= minimum)
             {
                 T pred = getPred(idx);
                 keys[idx] = pred;
                 childs[idx].remove(pred);
             }
-            else if(childs[idx + 1].length >= minimum)
+            else if (childs[idx + 1].length >= minimum)
             {
                 T succ = getSucc(idx);
                 keys[idx] = succ;
@@ -202,7 +202,7 @@ namespace DataStructures
         T getPred(int idx)
         {
             B_TreeNode<T> cur = childs[idx];
-            while(!cur.leaf)
+            while (!cur.leaf)
             {
                 cur = cur.childs[cur.length];
             }
@@ -221,17 +221,17 @@ namespace DataStructures
 
         void fill(int idx)
         {
-            if(idx != 0 && childs[idx - 1].length >= minimum)
+            if (idx != 0 && childs[idx - 1].length >= minimum)
             {
                 borrowFromPrev(idx);
             }
-            else if(idx != length && childs[idx + 1].length >= minimum)
+            else if (idx != length && childs[idx + 1].length >= minimum)
             {
                 borrowFromNext(idx);
             }
             else
             {
-                if(idx != length)
+                if (idx != length)
                 {
                     merge(idx);
                 }
@@ -247,14 +247,14 @@ namespace DataStructures
             B_TreeNode<T> child = childs[idx];
             B_TreeNode<T> sibling = childs[idx - 1];
 
-            for(int i = child.length - 1; i >= 0; i--)
+            for (int i = child.length - 1; i >= 0; i--)
             {
                 child.keys[i + 1] = child.keys[i];
             }
 
-            if(!child.leaf)
+            if (!child.leaf)
             {
-                for(int i = child.length; i >= 0; --i)
+                for (int i = child.length; i >= 0; --i)
                 {
                     child.childs[i + 1] = child.childs[i];
                 }
@@ -262,7 +262,7 @@ namespace DataStructures
 
             child.keys[0] = keys[idx - 1];
 
-            if(!child.leaf)
+            if (!child.leaf)
             {
                 child.childs[0] = sibling.childs[sibling.length];
             }
@@ -280,21 +280,21 @@ namespace DataStructures
 
             child.keys[child.length] = keys[idx];
 
-            if(!child.leaf)
+            if (!child.leaf)
             {
                 child.childs[child.length + 1] = sibling.childs[0];
             }
 
             keys[idx] = sibling.keys[0];
 
-            for(int i = 1; i < sibling.length; ++i)
+            for (int i = 1; i < sibling.length; ++i)
             {
                 sibling.keys[i - 1] = sibling.keys[i];
             }
 
-            if(!sibling.leaf)
+            if (!sibling.leaf)
             {
-                for(int i = 1; i <= sibling.length; ++i)
+                for (int i = 1; i <= sibling.length; ++i)
                 {
                     sibling.childs[i - 1] = sibling.childs[i];
                 }
@@ -311,25 +311,25 @@ namespace DataStructures
 
             child.keys[child.length - 1] = keys[idx];
 
-            for(int i = 0; i < sibling.length; ++i)
+            for (int i = 0; i < sibling.length; ++i)
             {
                 child.keys[i + minimum] = sibling.keys[i];
             }
 
-            if(!child.leaf)
+            if (!child.leaf)
             {
-                for(int i = 0; i <= sibling.length; i++)
+                for (int i = 0; i <= sibling.length; i++)
                 {
                     child.childs[i + minimum] = sibling.childs[i];
                 }
             }
 
-            for(int i = idx + 1; i < length; ++i)
+            for (int i = idx + 1; i < length; ++i)
             {
                 keys[i - 1] = keys[i];
             }
 
-            for(int i = idx + 2; i <= length; ++i)
+            for (int i = idx + 2; i <= length; ++i)
             {
                 childs[i - 1] = childs[i];
             }
@@ -337,5 +337,23 @@ namespace DataStructures
             child.length += sibling.length + 1;
             length--;
         }
+
+        public void traverse(ref DoubleLinkedList<T> result)
+        {            
+            int index;
+            for (index = 0; index < length; index++)
+            {
+                if (!leaf)
+                {
+                    childs[index].traverse(ref result);                    
+                }
+                result.Insert(keys[index],result.Length-1);
+            }
+            if (!leaf)
+            {
+                childs[index].traverse(ref result);
+            }
+        }
+
     }
 }

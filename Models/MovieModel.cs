@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EDDll_L1_AFPE_DAVH.Models
 {
-    public class MovieModel
+    public class MovieModel : IComparable
     {
         public string Director { get; set; }
         public double IMBDRating { get; set; }
@@ -14,6 +14,12 @@ namespace EDDll_L1_AFPE_DAVH.Models
         public string releaseDate { get; set; }
         public int rottenTomatoesRating { get; set; }
         public string Title { get; set; }
+
+        public int CompareTo(object obj)
+        {
+            var comparer = ((MovieModel)obj).Title;
+            return comparer.CompareTo(Title);
+        }
 
     }
 }

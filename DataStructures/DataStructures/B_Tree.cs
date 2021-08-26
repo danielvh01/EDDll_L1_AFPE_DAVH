@@ -9,7 +9,7 @@ namespace DataStructures
         internal B_TreeNode<T> root;
         public int degree;
         public int minDegree;
-
+        public string treeP = "";
         B_Tree(int d)
         {
             root = null;
@@ -80,6 +80,15 @@ namespace DataStructures
                     }
                 }
             }
+        }
+
+        public DoubleLinkedList<T> traverse()
+        {
+            DoubleLinkedList<T> result = new DoubleLinkedList<T>();
+
+            if (this.root != null)
+                this.root.traverse(ref result);
+            return result;
         }
     }
 }
