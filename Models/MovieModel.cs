@@ -18,7 +18,7 @@ namespace EDDll_L1_AFPE_DAVH.Models
         public int CompareTo(object obj)
         {
             var comparer = ((MovieModel)obj).Title;
-            return comparer.CompareTo(Title);
+            return Title.CompareTo(comparer);
         }
 
     }

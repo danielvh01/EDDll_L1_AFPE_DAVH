@@ -116,6 +116,29 @@ namespace DataStructures
 
         }
 
+        public B_TreeNode<T> Search(Func<T, int> k)
+        {
+            int i = 0;
+            while (i < length && k.Invoke(keys[i]) == 1)
+            {
+                i++;
+            }
+
+            if (i < length && k.Invoke(keys[i]) == 0)
+            {
+                return this;
+            }
+            else if (leaf)
+            {
+                return null;
+            }
+            else
+            {
+                return childs[i].Search(k);
+            }
+
+        }
+
         int findKey(T k)
         {
             int i = 0;
@@ -357,20 +380,51 @@ namespace DataStructures
             }
         }
 
-        public void traverse(ref DoubleLinkedList<T> result)
+        public void inOrder(ref DoubleLinkedList<T> result)
         {
             int index;
             for (index = 0; index < length; index++)
             {
                 if (!leaf)
                 {
-                    childs[index].traverse(ref result);
+                    childs[index].inOrder(ref result);
                 }
-                result.Insert(keys[index], result.Length - 1);
+                result.Insert(keys[index], result.Length);
             }
             if (!leaf)
             {
-                childs[index].traverse(ref result);
+                childs[index].inOrder(ref result);
+            }
+        }
+        public void preOrder(ref DoubleLinkedList<T> result)
+        {
+            int index;
+            for (index = 0; index < length; index++)
+            {
+                result.Insert(keys[index], result.Length);
+                
+            }
+            for (index = 0; index < length + 1; index++)
+            {
+                if (!leaf)
+                {
+                    childs[index].preOrder(ref result);
+                }
+            }
+        }
+        public void postOrder(ref DoubleLinkedList<T> result)
+        {
+            int index;
+            for (index = 0; index < length + 1; index++)
+            {
+                if (!leaf)
+                {
+                    childs[index].preOrder(ref result);
+                }
+            }
+            for(index = 0; index < length; index++)
+            {
+                result.Insert(keys[index], result.Length);
             }
         }
     }

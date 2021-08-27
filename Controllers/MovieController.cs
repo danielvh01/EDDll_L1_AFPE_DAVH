@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EDDll_L1_AFPE_DAVH.Models.Data;
 using EDDll_L1_AFPE_DAVH.Models;
 using DataStructures;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 using Newtonsoft.Json;//Libreria usada para generar JSON en un formato especifico.
 //COMMENT
 
@@ -17,9 +19,57 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        // GET: api/<MovieController>
-        [HttpGet]
-        
+       //POST: api/<MovieController>/populate
+       [HttpPost("populate")]
+        public async Task<IActionResult> Post()
+        {
+            if (Singleton.Instance.tree != null)
+            {
+                try
+                {
+                    StreamReader reader = new StreamReader(Request.Body);
+                    string content = await reader.ReadToEndAsync();
+                    MovieModel[] Movies = JsonConvert.DeserializeObject<MovieModel[]>(content);
+                    foreach (MovieModel movie in Movies)
+                    {
+                        Singleton.Instance.tree.Insert(movie);
+                    }
+                    return Ok();
+                }
+                catch
+                {
+                    return StatusCode(500);
+                }
+            }
+            else
+            {
+                return StatusCode(500);
+            }
+        }
+
+        //DELETE: api/<MovieController>/populate
+        [HttpDelete("populate/{id}")]
+        public ActionResult Delete(string id)
+        {
+            if (Singleton.Instance.tree != null && id != null && id != "")
+            {
+                var node = Singleton.Instance.tree.search(x => x.Title.CompareTo(id));
+                if (node != null)
+                {
+                    Singleton.Instance.tree.Remove(node);
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            else
+            {
+                return StatusCode(500);
+            }
+        }
+
 
         // GET api/<MovieController>/5
         [HttpGet("{traversal}")]
@@ -27,35 +77,38 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
         {
             if (Singleton.Instance.tree != null && traversal != "" && traversal != null)
             {
+                string JSONresult = "";
+                DataStructures.DoubleLinkedList<MovieModel> list;
                 if (traversal == "inOrder")
                 {
-                    string JSONresultinO = "";
-                    DataStructures.DoubleLinkedList<MovieModel> list = Singleton.Instance.tree.traverse();
-                    for (int i = 0; i < list.Length; i++)
-                    {
-                        MovieModel result = list.Get(i);
-                        JSONresultinO += JsonConvert.SerializeObject(result, Formatting.Indented);
-                    }
-                    return Ok(JSONresultinO);
+                    
+                    list = Singleton.Instance.tree.inOrder();
+                    JSONresult = JsonConvert.SerializeObject(list.GetEnumerator());
+                    JSONresult = JSONresult.Substring(13, JSONresult.Length - 14);
+                    return Ok(JSONresult);   
                 }
                 if (traversal == "preOrder")
                 {
-                    string JSONresultPRO = "";
-                    return Ok(JSONresultPRO);
+                    list = Singleton.Instance.tree.preOrder();
+                    JSONresult = JsonConvert.SerializeObject(list.GetEnumerator());
+                    JSONresult = JSONresult.Substring(13, JSONresult.Length - 14);
+                    return Ok(JSONresult);
                 }
                 if (traversal == "postOrder")
                 {
-                    string JSONresultPO = "";
-                    return Ok(JSONresultPO);
+                    list = Singleton.Instance.tree.postOrder();
+                    JSONresult = JsonConvert.SerializeObject(list.GetEnumerator());
+                    JSONresult = JSONresult.Substring(13, JSONresult.Length - 14);
+                    return Ok(JSONresult);
                 }
                 else
                 {
-                    return BadRequest();
+                    return StatusCode(500);;
                 }
             }
             
             else {
-                return BadRequest();
+                return StatusCode(500);;
             }
             
         }
@@ -72,21 +125,16 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
                 return Ok();
             }
             else {
-                return BadRequest();
+                return StatusCode(500);;
             }
         }
 
-        // PUT api/<MovieController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/<MovieController>/5
         [HttpDelete]
         public void Delete()
         {
-            Singleton.Instance.tree = new B_Tree<MovieModel>(0);
+            Singleton.Instance.tree = null;
         }
     }
 }
