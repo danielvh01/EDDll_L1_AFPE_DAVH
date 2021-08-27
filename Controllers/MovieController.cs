@@ -65,7 +65,7 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
         public ActionResult Post([FromBody]  TreeDegree degree)
         {      
             
-            if (Singleton.Instance.tree == null)
+            if (Singleton.Instance.tree == null && degree.TreeD >= 3 && degree.TreeD % 2 == 1)
             {
                 Singleton.Instance.TDegree = degree.TreeD;
                 Singleton.Instance.tree = new B_Tree<MovieModel>(degree.TreeD);
