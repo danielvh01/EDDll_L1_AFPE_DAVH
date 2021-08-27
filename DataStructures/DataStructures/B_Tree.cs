@@ -17,7 +17,7 @@ namespace DataStructures
 
         public void Insert(T k)
         {
-            if(root == null)
+            if (root == null)
             {
                 root = new B_TreeNode<T>(degree, true);
                 root.keys[0] = k;
@@ -49,10 +49,10 @@ namespace DataStructures
 
         public T search(T k)
         {
-            if(root != null)
+            if (root != null)
             {
                 B_TreeNode<T> node = root.Search(k);
-                if(node != null)
+                if (node != null)
                 {
                     return k;
                 }
@@ -66,17 +66,44 @@ namespace DataStructures
                 return default;
             }
         }
-        
+
+        public T search(Func<T, int> k)
+        {
+            if (root != null)
+            {
+                B_TreeNode<T> node = root.Search(k);
+                if (node != null)
+                {
+                    foreach(var key in node.keys)
+                    {
+                        if(k.Invoke(key) == 0)
+                        {
+                            return key;
+                        }
+                    }
+                    return default;
+                }
+                else
+                {
+                    return default;
+                }
+            }
+            else
+            {
+                return default;
+            }
+        }
+
         public void Remove(T k)
         {
-            if(root != null)
+            if (root != null)
             {
                 root.remove(k);
 
-                if(root.length == 0)
+                if (root.length == 0)
                 {
                     B_TreeNode<T> tmp = root;
-                    if(root.leaf)
+                    if (root.leaf)
                     {
                         root = null;
                     }
@@ -90,7 +117,7 @@ namespace DataStructures
         public string printTree()
         {
             string result = "";
-            if(root != null)
+            if (root != null)
             {
                 root.print(ref result);
             }
@@ -98,12 +125,30 @@ namespace DataStructures
             return result;
         }
 
-        public DoubleLinkedList<T> traverse()
+        public DoubleLinkedList<T> inOrder()
         {
             DoubleLinkedList<T> result = new DoubleLinkedList<T>();
 
             if (this.root != null)
-                this.root.traverse(ref result);
+                this.root.inOrder(ref result);
+            return result;
+        }
+
+        public DoubleLinkedList<T> preOrder()
+        {
+            DoubleLinkedList<T> result = new DoubleLinkedList<T>();
+
+            if (this.root != null)
+                this.root.preOrder(ref result);
+            return result;
+        }
+
+        public DoubleLinkedList<T> postOrder()
+        {
+            DoubleLinkedList<T> result = new DoubleLinkedList<T>();
+
+            if (this.root != null)
+                this.root.postOrder(ref result);
             return result;
         }
     }
