@@ -25,27 +25,35 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
         [HttpGet("{traversal}")]
         public ActionResult Get(string traversal)
         {
-            if (traversal == "inOrder")
+            if (Singleton.Instance.tree != null && traversal != "" && traversal != null)
             {
-                string JSONresultinO = "";
-                DataStructures.DoubleLinkedList<MovieModel> list = Singleton.Instance.tree.traverse();
-                for (int i = 0; i < list.Length; i++)
+                if (traversal == "inOrder")
                 {
-                    MovieModel result = list.Get(i);
-                    JSONresultinO += JsonConvert.SerializeObject(result,Formatting.Indented);
+                    string JSONresultinO = "";
+                    DataStructures.DoubleLinkedList<MovieModel> list = Singleton.Instance.tree.traverse();
+                    for (int i = 0; i < list.Length; i++)
+                    {
+                        MovieModel result = list.Get(i);
+                        JSONresultinO += JsonConvert.SerializeObject(result, Formatting.Indented);
+                    }
+                    return Ok(JSONresultinO);
                 }
-                return Ok(JSONresultinO);
+                if (traversal == "preOrder")
+                {
+                    string JSONresultPRO = "";
+                    return Ok(JSONresultPRO);
+                }
+                if (traversal == "postOrder")
+                {
+                    string JSONresultPO = "";
+                    return Ok(JSONresultPO);
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            if (traversal == "preOrder")
-            {
-                string JSONresultPRO = "";
-                return Ok(JSONresultPRO);
-            }
-            if (traversal == "postOrder")
-            {
-                string JSONresultPO = "";
-                return Ok(JSONresultPO);
-            }
+            
             else {
                 return BadRequest();
             }
@@ -54,12 +62,13 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
 
         // POST api/<MovieController>
         [HttpPost]
-        public ActionResult Post([FromBody]  int treeDegree)
-        {            
+        public ActionResult Post([FromBody]  TreeDegree degree)
+        {      
+            
             if (Singleton.Instance.tree == null)
             {
-                Singleton.Instance.TDegree = treeDegree;
-                Singleton.Instance.tree = new B_Tree<MovieModel>(treeDegree);
+                Singleton.Instance.TDegree = degree.TreeD;
+                Singleton.Instance.tree = new B_Tree<MovieModel>(degree.TreeD);
                 return Ok();
             }
             else {
