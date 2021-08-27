@@ -25,33 +25,24 @@ namespace DataStructures
             }
             else
             {
-                T x = search(k);
-                T y = default;
-                if (x.CompareTo(y) == 0)
+                if (root.length == (degree - 1))
                 {
-                    if (root.length == (degree - 1))
-                    {
-                        B_TreeNode<T> newNode = new B_TreeNode<T>(degree, false);
-                        newNode.childs[0] = root;
-                        newNode.SplitChild(0, root);
+                    B_TreeNode<T> newNode = new B_TreeNode<T>(degree, false);
+                    newNode.childs[0] = root;
+                    newNode.SplitChild(0, root);
 
-                        int i = 0;
-                        if (newNode.keys[0].CompareTo(k) == -1)
-                        {
-                            i++;
-                        }
-                        newNode.childs[i].InsertKey(k);
-
-                        root = newNode;
-                    }
-                    else
+                    int i = 0;
+                    if (newNode.keys[0].CompareTo(k) == -1)
                     {
-                        root.InsertKey(k);
+                        i++;
                     }
+                    newNode.childs[i].InsertKey(k);
+
+                    root = newNode;
                 }
                 else
                 {
-                    return;
+                    root.InsertKey(k);
                 }
             }
         }
