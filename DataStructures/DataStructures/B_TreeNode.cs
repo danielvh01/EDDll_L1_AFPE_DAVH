@@ -96,12 +96,12 @@ namespace DataStructures
         public B_TreeNode<T> Search(T k)
         {
             int i = 0;
-            while(i < length - 1 && k.CompareTo(keys[i]) == 1)
+            while(i < length && k.CompareTo(keys[i]) == 1)
             {
                 i++;
             }
 
-            if (keys[i].CompareTo(k) == 0)
+            if (i < length && keys[i].CompareTo(k) == 0)
             {
                 return this;
             }
