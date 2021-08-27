@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataStructures
 {
-    public class AVLTreeNode<T> where T : IComparable
+    internal class AVLTreeNode<T> where T : IComparable
     {
         #region Varibales and Instances
         //Punteros

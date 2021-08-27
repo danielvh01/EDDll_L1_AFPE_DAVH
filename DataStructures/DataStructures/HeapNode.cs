@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class HeapNode<T> : IComparable where T : IComparable
+    internal class HeapNode<T> : IComparable where T : IComparable
     {
         public string priority;
         public T value { get; set; }

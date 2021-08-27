@@ -6,9 +6,25 @@
 
   <ItemGroup>
     <Compile Remove="DataStructures\**" />
+    <Compile Remove="Serie II_INT_B_TREE\**" />
+    <Compile Remove="Serie2_INT_TREE\**" />
     <Content Remove="DataStructures\**" />
+    <Content Remove="Serie II_INT_B_TREE\**" />
+    <Content Remove="Serie2_INT_TREE\**" />
     <EmbeddedResource Remove="DataStructures\**" />
+    <EmbeddedResource Remove="Serie II_INT_B_TREE\**" />
+    <EmbeddedResource Remove="Serie2_INT_TREE\**" />
     <None Remove="DataStructures\**" />
+    <None Remove="Serie II_INT_B_TREE\**" />
+    <None Remove="Serie2_INT_TREE\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="DataStructures\DataStructures\DataStructures.csproj" />
   </ItemGroup>
 
 

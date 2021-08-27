@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class HashNode<T, K> where T : IComparable where K : IComparable
+    internal class HashNode<T, K> where T : IComparable where K : IComparable
     {
         #region Variables
         //Propiedades

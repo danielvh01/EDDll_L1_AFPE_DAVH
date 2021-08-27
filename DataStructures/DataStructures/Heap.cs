@@ -10,7 +10,7 @@ namespace DataStructures
     {
         #region Variables
         //Heap
-        public DoubleLinkedList<HeapNode<T>> heapArray;
+        internal DoubleLinkedList<HeapNode<T>> heapArray;
         //Capacidad máxima del heap
         int capacity;
 
@@ -90,8 +90,12 @@ namespace DataStructures
         {
             return heapArray.Get(0).value;
         }
+        public T Extract()
+        {
+            return extractMin().value;
+        }
         //Extrae el elemento más pequeño del heap
-        public HeapNode<T> extractMin()
+        internal HeapNode<T> extractMin()
         {
             //Si el heap no esta vació realiza la eliminación
             if (Length() <= 0)
