@@ -79,7 +79,7 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
             {
                 string JSONresult = "";
                 DataStructures.DoubleLinkedList<MovieModel> list;
-                if (traversal == "inOrder")
+                if (traversal == "inorder")
                 {
                     
                     list = Singleton.Instance.tree.inOrder();
@@ -87,14 +87,14 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
                     JSONresult = JSONresult.Substring(13, JSONresult.Length - 14);
                     return Ok(JSONresult);   
                 }
-                if (traversal == "preOrder")
+                if (traversal == "preorder")
                 {
                     list = Singleton.Instance.tree.preOrder();
                     JSONresult = JsonConvert.SerializeObject(list.GetEnumerator());
                     JSONresult = JSONresult.Substring(13, JSONresult.Length - 14);
                     return Ok(JSONresult);
                 }
-                if (traversal == "postOrder")
+                if (traversal == "postorder")
                 {
                     list = Singleton.Instance.tree.postOrder();
                     JSONresult = JsonConvert.SerializeObject(list.GetEnumerator());
