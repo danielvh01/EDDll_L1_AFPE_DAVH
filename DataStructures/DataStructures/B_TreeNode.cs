@@ -82,7 +82,7 @@ namespace DataStructures
             }
             childs[i + 1] = z;
 
-            for (int j = length; j >= i; j--)
+            for (int j = length-1; j >= i; j--)
             {
                 keys[j + 1] = keys[j];
             }
@@ -177,7 +177,7 @@ namespace DataStructures
                 {
                     fill(i);
                 }
-                else if (flag && i > length)
+                if (flag && i > length)
                 {
                     childs[i - 1].remove(k);
                 }
@@ -267,9 +267,9 @@ namespace DataStructures
         void borrowFromPrev(int idx)
         {
             B_TreeNode<T> child = childs[idx];
-            B_TreeNode<T> sibling = childs[idx - 1];
+            B_TreeNode<T> sibling = childs[idx- 1];
 
-            for (int i = child.length - 1; i >= 0; i--)
+            for (int i = child.length - 1; i >= 0; --i)
             {
                 child.keys[i + 1] = child.keys[i];
             }
