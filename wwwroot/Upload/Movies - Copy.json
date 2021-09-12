@@ -1,0 +1,50 @@
+[
+    {
+        "Director": "Juan tomas",
+        "IMBDRating": 5.4,
+        "Genre": "Comedia",
+        "releaseDate": "26/08/2021",
+        "rottenTomatoesRating": 10,
+        "Title": "Novelas mexicanas"
+    },
+    {
+        "Director": "Andres Parada",
+        "IMBDRating": 6.8,
+        "Genre": "Accion",
+        "releaseDate": "27/02/2001",
+        "rottenTomatoesRating": 7,
+        "Title": "Air Dribbling"
+    },
+    {
+        "Director": "Daniel Velasqueez",
+        "IMBDRating": 9.4,
+        "Genre": "Tecnologia",
+        "releaseDate": "26/09/2000",
+        "rottenTomatoesRating": 2,
+        "Title": "Yo, Robot"
+    },
+    {
+        "Director": "Pablo Durante",
+        "IMBDRating": 4.4,
+        "Genre": "Comedia",
+        "releaseDate": "22/08/2021",
+        "rottenTomatoesRating": 100,
+        "Title": "TOP 336"
+    },
+    {
+        "Director": "Oracle",
+        "IMBDRating": 10,
+        "Genre": "Tecnologia",
+        "releaseDate": "14/08/2021",
+        "rottenTomatoesRating": 2,
+        "Title": "NetBeans"
+    },
+    {
+        "Director": "Mayk Maurisio",
+        "IMBDRating": 8.8,
+        "Genre": "Ficcion",
+        "releaseDate": "01/12/2012",
+        "rottenTomatoesRating": 10,
+        "Title": "Calistennics Routine"
+    }
+]

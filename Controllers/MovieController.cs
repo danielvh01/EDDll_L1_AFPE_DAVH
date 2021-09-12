@@ -7,6 +7,7 @@ using EDDll_L1_AFPE_DAVH.Models.Data;
 using EDDll_L1_AFPE_DAVH.Models;
 using DataStructures;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Newtonsoft.Json;//Libreria usada para generar JSON en un formato especifico.
 //COMMENT
@@ -19,22 +20,76 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-       //POST: api/<MovieController>/populate
-       [HttpPost("populate")]
-        public async Task<IActionResult> Post()
+
+        public static IWebHostEnvironment _environment;
+        public MovieController(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+
+        public class FileUPloadAPI
+        {
+            public IFormFile FILE { get; set; }
+        }
+
+        //POST: api/<MovieController>/populate
+        [HttpPost("populate")]
+        [ActionName("Post")]
+        public async Task<IActionResult> Post([FromForm] FileUPloadAPI? objFile )
         {
             if (Singleton.Instance.tree != null)
             {
                 try
                 {
-                    StreamReader reader = new StreamReader(Request.Body);
-                    string content = await reader.ReadToEndAsync();
-                    MovieModel[] Movies = JsonConvert.DeserializeObject<MovieModel[]>(content);
-                    foreach (MovieModel movie in Movies)
+                    if (objFile.FILE != null)
                     {
-                        Singleton.Instance.tree.Insert(movie);
+                        if (objFile.FILE.Length > 0)
+                        {
+                            if (!Directory.Exists(_environment.WebRootPath + "\\Upload\\"))
+                            {
+                                Directory.CreateDirectory(_environment.WebRootPath + "\\Upload\\");
+                            }
+                            using (FileStream fileStream = System.IO.File.Create(_environment.WebRootPath + "\\Upload\\" + objFile.FILE.FileName))
+                            {
+                                objFile.FILE.CopyTo(fileStream);
+                                fileStream.Flush();
+                            }
+                            StreamReader reader = new StreamReader(_environment.WebRootPath + "\\Upload\\" + objFile.FILE.FileName);
+                            string content = await reader.ReadToEndAsync();
+                            MovieModel[] Movies = JsonConvert.DeserializeObject<MovieModel[]>(content);
+                            foreach (MovieModel movie in Movies)
+                            {                                                                
+                                Singleton.Instance.tree.Insert(movie);                                
+                            }
+                            return Ok();
+                        }
+                        else
+                        {
+                            return StatusCode(500);
+                        }
                     }
-                    return Ok();
+                    else if (Singleton.Instance.tree != null)
+                    {
+                        try
+                        {
+                            StreamReader reader = new StreamReader(Request.Body);
+                            string content = await reader.ReadToEndAsync();
+                            MovieModel[] Movies = JsonConvert.DeserializeObject<MovieModel[]>(content);
+                            foreach (MovieModel movie in Movies)
+                            {                                
+                                Singleton.Instance.tree.Insert(movie);                                                                
+                            }
+                            return Ok();
+                        }
+                        catch
+                        {
+                            return StatusCode(500);
+                        }
+                    }
+                    else
+                    {
+                        return StatusCode(500);
+                    }
                 }
                 catch
                 {
@@ -46,6 +101,33 @@ namespace EDDll_L1_AFPE_DAVH.Controllers
                 return StatusCode(500);
             }
         }
+
+        //[HttpPost("populate")]
+        //public async Task<IActionResult> Post()
+        //{
+        //    if (Singleton.Instance.tree != null)
+        //    {
+        //        try
+        //        {
+        //            StreamReader reader = new StreamReader(Request.Body);
+        //            string content = await reader.ReadToEndAsync();
+        //            MovieModel[] Movies = JsonConvert.DeserializeObject<MovieModel[]>(content);
+        //            foreach (MovieModel movie in Movies)
+        //            {
+        //                Singleton.Instance.tree.Insert(movie);
+        //            }
+        //            return Ok();
+        //        }
+        //        catch
+        //        {
+        //            return StatusCode(500);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(500);
+        //    }
+        //}
 
         //DELETE: api/<MovieController>/populate
         [HttpDelete("populate/{id}")]

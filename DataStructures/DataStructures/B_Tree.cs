@@ -16,15 +16,15 @@ namespace DataStructures
         }
 
         public void Insert(T k)
-        {
+        {            
             if (root == null)
             {
                 root = new B_TreeNode<T>(degree, true);
                 root.keys[0] = k;
                 root.length = 1;
-            }
-            else
-            {
+            }            
+            else if(searcho(k) == null)
+            {                
                 if (root.length == (degree - 1))
                 {
                     B_TreeNode<T> newNode = new B_TreeNode<T>(degree, false);
@@ -64,6 +64,26 @@ namespace DataStructures
             else
             {
                 return default;
+            }
+        }
+
+        private B_TreeNode<T> searcho(T k)
+        {
+            if (root != null)
+            {
+                B_TreeNode<T> node = root.Search(k);
+                if (node != null)
+                {
+                    return node;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
 
