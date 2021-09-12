@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Http;
+
 namespace EDDll_L1_AFPE_DAVH
 {
     public class Startup
@@ -35,6 +37,10 @@ namespace EDDll_L1_AFPE_DAVH
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
@@ -42,9 +48,15 @@ namespace EDDll_L1_AFPE_DAVH
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.Run(async(context)=> {
+                await context.Response.WriteAsync("Could not Find Anything");
             });
         }
     }
